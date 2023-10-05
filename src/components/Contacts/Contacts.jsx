@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 const Contacts = () => {
   const contacts = useSelector(selectContacts);
   const filter = useSelector(selectFilter);
-
+  console.log('CONTACTS', contacts);
   const handleDelete = async contactId => {
     try {
       dispatch(deleteContact(contactId));
@@ -28,9 +28,9 @@ const Contacts = () => {
   const visibleContacts = getVisibleContact();
   return (
     <ul>
-      {visibleContacts.map(({ name, number, id }) => (
+      {visibleContacts.map(({ name, phone, id }) => (
         <li key={id}>
-          {name}: {number}
+          {name}: {phone}
           <button type="button" onClick={() => handleDelete(id)}>
             Delete contact
           </button>
