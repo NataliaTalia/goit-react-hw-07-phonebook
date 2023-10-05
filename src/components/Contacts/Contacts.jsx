@@ -1,12 +1,9 @@
 import React from 'react';
-import { selectContacts, selectFilter } from 'redux/selectors';
+import { selectVisibleContacts } from 'redux/selectors';
 import { deleteContact } from '../../redux/operations';
 import { useDispatch, useSelector } from 'react-redux';
 
 const Contacts = () => {
-  const contacts = useSelector(selectContacts);
-  const filter = useSelector(selectFilter);
-  console.log('CONTACTS', contacts);
   const handleDelete = async contactId => {
     try {
       dispatch(deleteContact(contactId));
@@ -17,15 +14,7 @@ const Contacts = () => {
 
   const dispatch = useDispatch();
 
-  const getVisibleContact = () => {
-    const normalizedFilter = filter.toLowerCase();
-
-    return contacts.filter(contact =>
-      contact.name.toLowerCase().includes(normalizedFilter)
-    );
-  };
-
-  const visibleContacts = getVisibleContact();
+  const visibleContacts = useSelector(selectVisibleContacts);
   return (
     <ul>
       {visibleContacts.map(({ name, phone, id }) => (
